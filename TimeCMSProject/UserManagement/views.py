@@ -6,15 +6,17 @@ from rest_framework.response import Response
 
 from .models import Users, Address, Permission, Roles
 # from .permissions import IsManager, IsClient, IsEmployee
-from .serializers import UserSerializer, AddressSerializer, RoleSerializer , PermissionSerializer
+from .serializers import UserSerializer, AddressSerializer, RoleSerializer, PermissionSerializer
 
 # Create your views here.
 from django.contrib.auth import get_user_model
 
-class CreateEmployee(generics.CreateAPIView, generics.ListCreateAPIView, generics.RetrieveAPIView):
+
+class Employee(generics.CreateAPIView, generics.ListCreateAPIView, generics.RetrieveAPIView):
     permission_classes = [AllowAny, ]
     queryset = get_user_model().objects.all()
     serializer_class = UserSerializer
+
     # lookup_field = 'id'
     def create(self, request, *args, **kwargs):
         print("herer")
@@ -26,7 +28,8 @@ class CreateEmployee(generics.CreateAPIView, generics.ListCreateAPIView, generic
             'data': response.data
         })
 
-class CreateAddress(generics.CreateAPIView, generics.ListCreateAPIView, generics.RetrieveAPIView):
+
+class Address(generics.CreateAPIView, generics.ListCreateAPIView, generics.RetrieveAPIView):
     # permission_classes = [IsClient, ]
     queryset = Address.objects.all()
     serializer_class = AddressSerializer
@@ -39,6 +42,7 @@ class CreateAddress(generics.CreateAPIView, generics.ListCreateAPIView, generics
             'message': 'Address successfully created.',
             'data': response.data
         })
+
 
 class RoleOperations(generics.CreateAPIView, generics.ListCreateAPIView, generics.RetrieveAPIView):
     # permission_classes = [IsClient, ]
@@ -55,7 +59,7 @@ class RoleOperations(generics.CreateAPIView, generics.ListCreateAPIView, generic
         })
 
 
-class CreatePermission(generics.CreateAPIView, generics.ListCreateAPIView, generics.RetrieveAPIView):
+class Permission(generics.CreateAPIView, generics.ListCreateAPIView, generics.RetrieveAPIView):
     # permission_classes = [IsClient, ]
     queryset = Permission.objects.all()
     serializer_class = PermissionSerializer

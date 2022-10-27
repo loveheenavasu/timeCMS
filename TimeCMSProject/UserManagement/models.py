@@ -37,7 +37,7 @@ class Permission(models.Model):
     name = models.CharField(max_length=50, null=True, blank=True)
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 
 class Roles(models.Model):
@@ -48,7 +48,7 @@ class Roles(models.Model):
     is_user = models.BooleanField(default=True)
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 
 class Address(models.Model):
@@ -57,6 +57,8 @@ class Address(models.Model):
     city = models.CharField(max_length=255, null=True, blank=True)
     country = models.CharField(max_length=1000, null=True, blank=True)
     zipcode = models.CharField(max_length=1000, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 
 class Users(AbstractUser):
@@ -73,9 +75,9 @@ class Users(AbstractUser):
     address = models.ForeignKey(Address, null=True, blank=True, on_delete=models.CASCADE)
     description = models.TextField(max_length=500, null=True, blank=True)
     is_active = models.BooleanField(default=True)
-    # is_superuser = models.BooleanField(default=True)
+    # is_superuser = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta(AbstractUser.Meta):
         swappable = "settings.AUTH_USER_MODEL"
