@@ -1,32 +1,32 @@
-from django.contrib.auth.models import User
-from rest_framework import viewsets, generics
-from rest_framework.generics import get_object_or_404
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
 from .models import Users, Address, Permission, Roles
 # from .permissions import IsManager, IsClient, IsEmployee
-from .serializers import UserSerializer, AddressSerializer, RoleSerializer , PermissionSerializer
-
-# Create your views here.
+from .serializers import UserSerializer, AddressSerializer, RoleSerializer, PermissionSerializer
+from rest_framework.generics import CreateAPIView, ListCreateAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView
 from django.contrib.auth import get_user_model
+from rest_framework import generics, viewsets
 
-class CreateEmployee(generics.CreateAPIView, generics.ListCreateAPIView, generics.RetrieveAPIView):
+
+class EmployeeOperations(generics.CreateAPIView, generics.ListAPIView, generics.RetrieveAPIView, generics.UpdateAPIView,
+                         generics.RetrieveUpdateAPIView, generics.DestroyAPIView):
     permission_classes = [AllowAny, ]
     queryset = get_user_model().objects.all()
     serializer_class = UserSerializer
-    # lookup_field = 'id'
-    def create(self, request, *args, **kwargs):
-        print("herer")
-        response = super().create(request, *args, **kwargs)
+    lookup_field = 'id'
 
-        return Response({
-            'status': 200,
-            'message': 'Employee successfully created.',
-            'data': response.data
-        })
+    # def create(self, request, *args, **kwargs):
+    #     response = super().create(request, *args, **kwargs)
+    #     return Response({
+    #         'status': 200,
+    #         'message': 'Employee successfully created.',
+    #         'data': response.data
+    #     })
 
-class CreateAddress(generics.CreateAPIView, generics.ListCreateAPIView, generics.RetrieveAPIView):
+
+class AddressOperations(generics.CreateAPIView, generics.ListAPIView, generics.RetrieveAPIView, generics.UpdateAPIView,
+                         generics.RetrieveUpdateAPIView, generics.DestroyAPIView):
     # permission_classes = [IsClient, ]
     queryset = Address.objects.all()
     serializer_class = AddressSerializer
@@ -40,7 +40,9 @@ class CreateAddress(generics.CreateAPIView, generics.ListCreateAPIView, generics
             'data': response.data
         })
 
-class RoleOperations(generics.CreateAPIView, generics.ListCreateAPIView, generics.RetrieveAPIView):
+
+class RoleOperations(generics.CreateAPIView, generics.ListAPIView, generics.RetrieveAPIView, generics.UpdateAPIView,
+                         generics.RetrieveUpdateAPIView, generics.DestroyAPIView):
     # permission_classes = [IsClient, ]
     queryset = Roles.objects.all()
     serializer_class = RoleSerializer
@@ -55,7 +57,8 @@ class RoleOperations(generics.CreateAPIView, generics.ListCreateAPIView, generic
         })
 
 
-class CreatePermission(generics.CreateAPIView, generics.ListCreateAPIView, generics.RetrieveAPIView):
+class PermissionOperations(generics.CreateAPIView, generics.ListAPIView, generics.RetrieveAPIView, generics.UpdateAPIView,
+                         generics.RetrieveUpdateAPIView, generics.DestroyAPIView):
     # permission_classes = [IsClient, ]
     queryset = Permission.objects.all()
     serializer_class = PermissionSerializer

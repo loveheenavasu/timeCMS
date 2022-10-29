@@ -13,23 +13,23 @@ class ProgressStatus(models.Model):
     name = models.CharField(max_length=255, null=True, blank=True)
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 
 # Create your models here.
 class Projects(models.Model):
     name = models.CharField(max_length=255, null=True, blank=True)
     department = models.ForeignKey(Departments, on_delete=models.CASCADE, null=True, blank=True)
-    deadline = models.DateTimeField(null=True, blank=True)
     description = models.TextField(max_length=255)
-    progress_status = models.ForeignKey(ProgressStatus, on_delete=models.CASCADE)
+    deadline = models.DateTimeField(null=True, blank=True)
     priority = models.CharField(max_length=255, choices=PRIORITY, default='Lowest')
+    progress_status = models.ForeignKey(ProgressStatus, on_delete=models.CASCADE)
     is_ongoing = models.BooleanField(default=True)
     is_completed = models.BooleanField(default=False)
     received_at = models.DateTimeField(auto_now_add=True)
-    created_at = models.DateTimeField(null=True, blank=True)
-    updated_at = models.DateTimeField(null=True, blank=True)
     completed_at = models.DateTimeField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 
 class Task(models.Model):
@@ -42,12 +42,12 @@ class Task(models.Model):
     deadline = models.DateTimeField(null=True, blank=True)
     task_created_by = models.CharField(max_length=255, null=True, blank=True)
     progress_status = models.ForeignKey(ProgressStatus, on_delete=models.CASCADE)
-    is_active = models.BooleanField(default=True)
     is_completed = models.BooleanField(default=False)
     started_at = models.DateTimeField(null=True, blank=True)
     completed_at = models.DateTimeField(null=True, blank=True)
+    is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 
 class Remarks(models.Model):
@@ -57,4 +57,4 @@ class Remarks(models.Model):
     description = models.TextField()
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
