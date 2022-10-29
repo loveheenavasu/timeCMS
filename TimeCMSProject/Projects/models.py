@@ -17,7 +17,7 @@ class ProgressStatus(models.Model):
 
 
 # Create your models here.
-class Projects(models.Model):
+class ProjectsModel(models.Model):
     name = models.CharField(max_length=255, null=True, blank=True)
     department = models.ForeignKey(Departments, on_delete=models.CASCADE, null=True, blank=True)
     description = models.TextField(max_length=255)
@@ -30,13 +30,15 @@ class Projects(models.Model):
     completed_at = models.DateTimeField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    screensort_switch = models.BooleanField(default=False)
+
 
 
 class Task(models.Model):
     name = models.CharField(max_length=1000, null=True, blank=True)
     department = models.ForeignKey(Departments, on_delete=models.CASCADE, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
-    project = models.ForeignKey(Projects, on_delete=models.CASCADE)
+    project = models.ForeignKey(ProjectsModel, on_delete=models.CASCADE)
     assigned_to = models.ForeignKey(Users, blank=True, null=True, on_delete=models.CASCADE)
     priority = models.CharField(max_length=255, choices=PRIORITY, default='Lowest')
     deadline = models.DateTimeField(null=True, blank=True)
@@ -52,9 +54,17 @@ class Task(models.Model):
 
 class Remarks(models.Model):
     name = models.CharField(max_length=255)
-    project = models.ForeignKey(Projects, on_delete=models.CASCADE)
+    project = models.ForeignKey(ProjectsModel, on_delete=models.CASCADE)
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
     description = models.TextField()
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+
+class Timesheet(models.Model):
+    start_time = models.DateTimeField()
+    end_time = models.DateTimeField()
+    user = models.ForeignKey(Users, on_delete=models.CASCADE)
+    project = models.ForeignKey(ProjectsModel, on_delete=models.CASCADE, null=True, blank=True)
+    task = models.ForeignKey(Task, on_delete=models.CASCADE, null=True, blank=True)

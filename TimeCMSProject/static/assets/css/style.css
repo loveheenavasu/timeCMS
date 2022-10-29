@@ -1,5 +1,5 @@
 h2 {
-    font-size: 16px;
+    font-size: 17px;
     margin-bottom: 20px;
     font-weight: 700;
 }
@@ -31,4 +31,11 @@ h2 {
 }
 .pop-btn a:hover {
     color: #fff !important;
+}
+.post-img img {
+    margin-bottom: 20px;
+}
+.post-img .form-check-input {
+    font-size: 17px;
+    margin: auto;
 }

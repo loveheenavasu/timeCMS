@@ -1,12 +1,12 @@
 from rest_framework.serializers import ModelSerializer
-from .models import Projects, Task, Remarks, ProgressStatus
+from .models import ProjectsModel, Task, Remarks, ProgressStatus, Timesheet
 
 
 class ProjectsSerializer(ModelSerializer):
     # permission = DepartmentsSerializer(many=True, read_only=True)
     """user model serializer"""
     class Meta:
-        model = Projects
+        model = ProjectsModel
         fields = "__all__"
 
 
@@ -29,4 +29,11 @@ class ProgressStatusSerializer(ModelSerializer):
     """user model serializer"""
     class Meta:
         model = ProgressStatus
+        fields = "__all__"
+
+class TimesheetSerializer(ModelSerializer):
+    # permission = DepartmentsSerializer(many=True, read_only=True)
+    """user model serializer"""
+    class Meta:
+        model = Timesheet
         fields = "__all__"
