@@ -73,3 +73,8 @@ class ProgressStatus(generics.CreateAPIView, generics.ListCreateAPIView, generic
             'message': 'status successfully created.',
             'data': response.data
         })
+
+
+def projects(request):
+    
+    return  render(request, 'projects.html')
